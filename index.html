@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NLP with JavaScript</title>
+    
+  
+
+</head>
+<body>
+	<div>
+		<input type="text" id="npltest">
+        <span id="output"></span>
+	</div>
+
+</body>
+
+
+<script src="compromise.min.js"></script>
+<script src="./jquery.min.js"></script>
+
+<script>
+    $('#npltest').keyup(function(){
+        var input = $('#npltest').val();
+        var docx = nlp(input);
+        console.log(docx.topics().places().text());
+        console.log(docx.sentences().data());   
+        var json = JSON.stringify(docx.sentences().data());
+        $('#output').html(json);
+    })
+</script>
+
+</html>
