@@ -1,5 +1,5 @@
 {
-    "name": "Corpus",
+    "name": "Mamamiya",
     "locale": "en-US",
     "data": [
       {
@@ -879,10 +879,7 @@
       {
         "intent": "None",
         "utterances": [
-          "I need advice",
-          "I need some advice",
-          "can you give me some advice?",
-          "what should I do?"
+          ""
         ],
         "answers": [
           "Sorry, I don't understand"

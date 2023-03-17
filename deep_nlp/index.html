@@ -22,10 +22,11 @@
     $('#npltest').keyup(function(){
         var input = $('#npltest').val();
         var docx = nlp(input);
-        console.log(docx.topics().places().text());
-        console.log(docx.sentences().data());   
-        var json = JSON.stringify(docx.sentences().data());
-        $('#output').html(json);
+        var json = JSON.stringify(docx.topics().data());
+        console.log();
+        var intent = json.toLowerCase().trim().replaceAll('"' , '').replaceAll(' ','');
+        $('#output').html(intent);
+
     })
 </script>
 

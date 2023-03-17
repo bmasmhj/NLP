@@ -34,7 +34,6 @@ console.log(docx.topics().organizations().text());
 
 // Working with Nouns  & Verbs
 
-console.log(docx.nouns().text());
 console.log(docx.verbs().data());
 
 var docx2 = nlp("book");

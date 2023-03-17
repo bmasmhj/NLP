@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://bimash.com.np/assets/img/favicon.png" rel="icon">
+    <link href="https://bimash.com.np/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="assets/css/argonstyle.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.3.0/css/all.css">
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <meta name="description" content="Live Chat app with global Community">
+    <meta name="author" content="Bimash Maharjan">
+    <meta name="keywords"
+        content="Chat app , Bimash Maharjan , chat bot,  Web Socket chat , Simple chat app , login with facebook">
+</head>
+
+<style>
+    .chat-box {
+        min-height: 83vh;
+    }
+
+    #profilepic {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    #user_list {
+        height: 75vh;
+        overflow: auto;
+    }
+
+    *::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: rgb(31, 32, 34);
+        border-radius: 20px;
+        border: 3px solid rgb(255, 255, 255);
+    }
+</style>
+
+<body class="g-sidenav-show bg-gray-100">
+    <div class="position-absolute w-100 min-height-300 top-0"
+        style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
+        <span class="mask bg-primary opacity-6"></span>
+    </div>
+    <aside
+        class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 ps ps--active-y"
+        id="sidenav-main">
+        <div class="sidenav-header">
+            <a class="navbar-brand m-0"  href="#" target="_blank">
+                <img src="https://chat.bimash.com.np/assets/images/bot.png" class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold">Chat bot</span>
+            </a>
+        </div>
+        <hr class="horizontal dark mt-0">
+        <div class="collapse navbar-collapse w-auto h-auto ps" id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+             
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Dashboard</h6>
+                </li>
+                <li class="nav-item">
+                    <a  href="javascript:void()" class="nav-link ">
+                        <div class="icon pb-0 text-center d-flex align-items-center justify-content-center">
+                            <i class="h5 fa-solid text-dark fa-lock"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Chat Dashboard</span>
+                    </a>
+                    <a href="javascript:void()" class="nav-link ">
+                        <div class="icon pb-0 text-center d-flex align-items-center justify-content-center">
+                            <i class="h5 fa-solid text-dark fa-lock"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Bot Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <hr class="horizontal dark">
+                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Train Bot</h6>
+                </li>   
+                <li class="nav-item">
+                    <a href="javascript:void()" class="nav-link ">
+                        <div class="icon pb-0 text-center d-flex align-items-center justify-content-center">
+                            <i class="h5 fa-duotone text-primary fa-folder"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Domain</span>
+                    </a>
+                    <a href="javascript:void()" class="nav-link ">
+                        <div class="icon pb-0 text-center d-flex align-items-center justify-content-center">
+                            <i class="h5 fa-duotone text-danger fa-chart-network"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Intents</span>
+                    </a>
+                    <a href="javascript:void()" class="nav-link active">
+                        <div class="icon pb-0 text-center d-flex align-items-center justify-content-center">
+                            <i class="h5 fa-light fa-brain-circuit text-info"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Entity</span>
+                    </a>
+                </li>
+
+            </ul>
+          
+        </div>
+       
+    </aside>
+    <div class="main-content position-relative vh-100 ">
+        <div class="py-4 card shadow-none mx-3 bg-transparent card-profile-bottom">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            Select Intents
+                            <select name="" class="form-select mt-2" id="">
+                                <option value="">agent.greetings</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <form class="">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="font-weight-bolder">agent.greetings </h5>
+                                    <button class="btn bg-gradient-info ms-auto mb-0 js-btn-next" type="button"  title="Next">Train</button>
+                                </div>
+                                <div class="multisteps-form__content">
+                                    <label>Utterance</label>
+                                    <input class="form-control" id="choices-tags" data-color="dark" type="text"
+                                        value="hi, hello, howdy, hey buddy" placeholder="Enter something" onfocus="focused(this)"
+                                        onfocusout="defocused(this)" />
+                                    <label>Answer</label>
+                                    <input class="form-control" id="choices-tag" data-color="dark" type="text"
+                                        value="Hey There !, Hy, Greetings !, Hello" placeholder="Enter something" onfocus="focused(this)"
+                                        onfocusout="defocused(this)" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            log
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Trained Data</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 p-0 m-0">
+                                    <h6 class="text-center">Utterance</h6>
+                                    <ul class="list-group border-radius-none">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Cras justo odio
+                                            <span class="badge badge-danger bg-transparent  badge-pill"><i class="fa-duotone fa-trash"></i></span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Cras justo odio
+                                            <span class="badge badge-danger bg-transparent  badge-pill"><i class="fa-duotone fa-trash"></i></span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Cras justo odio
+                                            <span class="badge badge-danger bg-transparent  badge-pill"><i class="fa-duotone fa-trash"></i></span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Cras justo odio
+                                            <span class="badge badge-danger bg-transparent  badge-pill"><i class="fa-duotone fa-trash"></i></span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Cras justo odio
+                                            <span class="badge badge-danger bg-transparent  badge-pill"><i class="fa-duotone fa-trash"></i></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 p-0 m-0">
+                                    <h6 class="text-center">Answer</h6>
+                                    <ul class="list-group border-radius-none">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Cras justo odio
+                                            <span class="badge badge-danger bg-transparent  badge-pill"><i class="fa-duotone fa-trash"></i></span>
+                                        </li><li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Cras justo odio
+                                            <span class="badge badge-danger bg-transparent  badge-pill"><i class="fa-duotone fa-trash"></i></span>
+                                        </li><li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Cras justo odio
+                                            <span class="badge badge-danger bg-transparent  badge-pill"><i class="fa-duotone fa-trash"></i></span>
+                                        </li><li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Cras justo odio
+                                            <span class="badge badge-danger bg-transparent  badge-pill"><i class="fa-duotone fa-trash"></i></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    <script src="assets/js/choice.js"></script>
+    <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
+    <script src="assets/js/perfecrscroll.min.js"></script>
+    <script src="assets/js/argondash.js"></script>
+    <script src="assets/js/argonmin.js"></script>
+
+
+<script>
+    
+        if (document.getElementById("choices-button")) {
+            var element = document.getElementById("choices-button");
+            const example = new Choices(element, {});
+        }
+        var choicesTags = document.getElementById("choices-tags");
+        var choicesTag = document.getElementById("choices-tag");
+
+        var color = choicesTags.dataset.color;
+        if (choicesTags) {
+            const example = new Choices(choicesTags, {
+                delimiter: ",",
+                editItems: true,
+                removeItemButton: true,
+                addItems: true,
+                classNames: {
+                    item: "badge rounded-pill choices-" + color + " me-2"
+                }
+            });
+        }
+         var color = choicesTag.dataset.color;
+            if (choicesTag) {
+                const example = new Choices(choicesTag, {
+                    delimiter: ",",
+                    editItems: true,
+                    removeItemButton: true,
+                    addItems: true,
+                    classNames: {
+                        item: "badge rounded-pill choices-" + color + " me-2"
+                    }
+                });
+            }
+    
+</script>
+
+</body>
+
+
+
+
+</html>
